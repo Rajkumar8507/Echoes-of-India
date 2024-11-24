@@ -16,7 +16,7 @@ namespace Tourist_places
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Tourist", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Tourist", action = "Home", id = UrlParameter.Optional }
             );
         }
     }

@@ -1,19 +1,20 @@
 ﻿@model IEnumerable<Tourist_places.Models.TouristPlace>
 
-@{
-    ViewBag.Title = "Index";
-}
 
 <h2>ECHOES OF INDIA</h2>
 <h3>A Timeless Journey Through Culture and Heritage</h3>
 <style>
-    h3
+    #vb
     {
-        color:white;
-        text-align:center;
-        box-shadow:inherit;
-        background-color:green;
+        color:red;
     }
+    h3 {
+        color: white;
+        text-align: center;
+        box-shadow: inherit;
+        background-color: green;
+    }
+
     h2 {
         color: blue;
         text-align: center;
@@ -21,17 +22,15 @@
         background-color: orange;
     }
 </style>
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 @Html.ActionLink("Home","Home")
-@using (Html.BeginForm("Index", "Tourist", FormMethod.Post))
+@using (Html.BeginForm("return_user", "Tourist", FormMethod.Post))
 {
     <div class="form-group">
         <label for="search">Search by Name:</label>
-        <input type
-="text" id="search"  class="form-control" name="Name" placeholder="Enter Tourist Place Name" />
+        <input type="text" id="search" class="form-control" name="Name" placeholder="Enter Tourist Place Name" />
     </div>
+    
     <button type="submit" class="btn btn-primary">Search</button>
 }
 
@@ -39,6 +38,16 @@
 
 <table class="table">
     <tr>
+       
+        <div>
+    @if (ViewBag.Message != null)
+    {
+        <div id="vb">
+            @ViewBag.Message
+        </div>
+
+    }
+</div>
         <th>
             @Html.DisplayNameFor(model => model.First().touristPlaceType.TouristPlaceTypeName)
         </th>
@@ -48,7 +57,7 @@
         <th>
             @Html.DisplayNameFor(model => model.First().TouristPlaceDescription)
         </th>
-        
+
         <th>
             @Html.DisplayNameFor(model => model.First().ImagePath)
         </th>
@@ -67,19 +76,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.TouristPlaceDescription)
             </td>
-            
+
             <td>
                 <img src="@item.ImagePath"
                      alt="@item.TouristPlaceName"
                      width="200"
                      height="100" />
             </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.TouristPlaceId }) |
 
-                @Html.ActionLink("Delete", "Delete", new { id = item.TouristPlaceId }) 
-
-            </td>
         </tr>
     }
 </table>

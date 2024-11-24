@@ -135,6 +135,7 @@
     <Compile Include="Models\TouristPlace.cs" />
     <Compile Include="Models\TouristPlaceType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\Shared\users.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -190,10 +191,17 @@
     <Content Include="Views\Tourist\Create.cshtml" />
     <Content Include="Views\Tourist\Edit.cshtml" />
     <Content Include="Views\Tourist\Delete.cshtml" />
+    <Content Include="Views\Tourist\Admin.cshtml" />
+    <Content Include="Views\Tourist\Users.cshtml" />
+    <Content Include="Views\Tourist\return_user.cshtml" />
+    <Content Include="Views\Tourist\Home.cshtml" />
+    <Content Include="Views\Tourist\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\app_data\" />
     <Folder Include="Views\Home\" />
+    <Folder Include="Views\Tourist\home\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

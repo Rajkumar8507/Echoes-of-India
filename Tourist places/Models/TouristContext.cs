@@ -17,9 +17,12 @@ namespace Tourist_places.Models
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<TouristPlaceType>().ToTable("TouristPlaceType");
             modelBuilder.Entity<TouristPlace>().ToTable("TouristPlace");
+            modelBuilder.Entity<users>().ToTable("Users_Table");
         }
         public DbSet<TouristPlaceType> touristPlaceTypes { get; set; }
         public DbSet<TouristPlace> touristPlaces { get; set; }
+
+        public DbSet<users> users_c { get; set; }
     }
 
 }

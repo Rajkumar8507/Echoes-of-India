@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Ajax.Utilities;
+using Newtonsoft.Json.Serialization;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -20,9 +22,103 @@ namespace Tourist_places.Controllers
         {
             _context = new TouristContext();
         }
+        public ActionResult Home()
+        {
+            return View();
+        }
+        [HttpGet]
+        public ActionResult Register()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Register(users model)
+        {
+            if (string.IsNullOrEmpty(model.UserName) || string.IsNullOrEmpty(model.Password))
+            {
+                ViewBag.Message = "Username and Password cannot be empty.";
+                
+            }
+            users u = _context.users_c.ToList().Find(t => t.UserName ==model.UserName || t.Password == model.Password);
+            if (u == null)
+            {
+                users newUser = new users
+                {
+                    UserName = model.UserName,
+                    Password = model.Password
+                };
+                _context.users_c.Add(newUser);
+                _context.SaveChanges();
+            }
+            else
+            {
+                ViewBag.Message="user already exists with this data try to register with new one";
+            }
+          return View();               
+        }
 
-        
 
+        [HttpGet]
+        public ActionResult Users()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Users(users model)
+        {
+            
+            users u = _context.users_c.ToList().Find(t => t.UserName ==model.UserName && t.Password == model.Password);
+            if (u != null)
+            {
+                return RedirectToAction("return_user");
+            }
+            else
+            {
+                ViewBag.Message = "invalid credentials please register ";
+            }
+            return View();
+        }
+        public ActionResult return_user(string Name)
+        {
+            List<TouristPlace> tplist;
+            if (!string.IsNullOrEmpty(Name))
+            {
+                tplist = _context.touristPlaces
+                                 .Include("touristPlaceType")
+                                 .Where(tp => tp.TouristPlaceName.Contains(Name))
+                                 .ToList();
+                if(tplist==null)
+                {
+                    ViewBag.Message = "there is no matching Place";
+                }
+            }
+            else
+            {
+                tplist = _context.touristPlaces.Include("touristPlaceType").ToList();
+            }
+
+            return View(tplist);
+        }
+        public ActionResult Admin()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Admin(string AdminName,string AdminPassword)
+        {
+           string adminname = "rajkumar";
+           string  adminpassword = "7";
+            if (AdminName ==adminname  && AdminPassword == adminpassword)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewBag.Message = "Enter valid credentials";  
+            }
+
+            return View();
+        }
         public ActionResult Index(string Name)
         {
             List<TouristPlace> tplist;
